@@ -27,6 +27,7 @@ namespace Mars_SeleniumAutomation.Pages.Components.ProfilePageOverview
         private IWebElement manageListingTab;
         private IWebElement manageListing;
         private IWebElement manageListingEditIcon;
+        private IWebElement serviceShareSkillTab;
         public void renderComponents()
         {
             try
@@ -42,7 +43,7 @@ namespace Mars_SeleniumAutomation.Pages.Components.ProfilePageOverview
                 Console.WriteLine(ex);
             }
         }
-        public void renderComponents1()
+        public void renderLanguageComponent()
         {
             try 
             {
@@ -54,11 +55,11 @@ namespace Mars_SeleniumAutomation.Pages.Components.ProfilePageOverview
                 Console.WriteLine(ex);
             }
         }
-        public void renderComponent2() 
+        public void renderLanguageDeleteComponent() 
         {
             languageDeleteIcon = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr[last()]/td[3]/span[2]/i"));
         }
-        public void renderShareSkillComponent()
+        public void renderShareSkillTabComponent()
         {
             shareSkillTab = driver.FindElement(By.XPath("//a[normalize-space()='Share Skill']"));
         }
@@ -73,6 +74,10 @@ namespace Mars_SeleniumAutomation.Pages.Components.ProfilePageOverview
         public void renderManageListingEditIcon() 
         {
             manageListingEditIcon = driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[8]/div/button[2]/i"));
+        }
+        public void renderServiceShareSkill()
+        {
+            serviceShareSkillTab = driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/section[1]/div/div[2]/a"));
         }
         public void clickUserNameIcon()
         {
@@ -106,24 +111,24 @@ namespace Mars_SeleniumAutomation.Pages.Components.ProfilePageOverview
         }
         public void clickLanguagesTab()
         {
-            renderComponents1();
+            renderLanguageComponent();
             languagesTab.Click();
         }
         public void clickLanguageEditIcon()
         {
-            renderComponents1();
+            renderLanguageComponent();
             languageEditIcon.Click();
         }
         public void clickDeleteIcon()
         {
             Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr[last()]/td[3]/span[2]/i", 20);
-            renderComponent2();
+            renderLanguageDeleteComponent();
             languageDeleteIcon.Click();
         }
         public void clickShareSkillTab()
         {
             Wait.WaitToBeClickable(driver, "XPath", "//a[normalize-space()='Share Skill']", 20);
-            renderShareSkillComponent();
+            renderShareSkillTabComponent();
             shareSkillTab.Click();
         }
         public void clickManageListingTab()
@@ -131,17 +136,23 @@ namespace Mars_SeleniumAutomation.Pages.Components.ProfilePageOverview
             renderManageListingTab();
             manageListingTab.Click();
         }
-        public void clickManageListing()
+        public void clickProfileManageListing()
         {
-            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[1]/div/a[3]", 20);
+            Thread.Sleep(2000);
             renderProfileManageListingComponent();
             manageListing.Click();
+            Wait.WaitToBeVisible(driver, "XPath", ".//i[@class='remove icon']", 20);
         }
         public void clickManageListingEditIcon()
         {
             Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[8]/div/button[2]/i", 20);
             renderManageListingEditIcon();
             manageListingEditIcon.Click();
+        }
+        public void clickServiceShareSkill()
+        {
+            renderServiceShareSkill();
+            serviceShareSkillTab.Click();
         }
     }
 }

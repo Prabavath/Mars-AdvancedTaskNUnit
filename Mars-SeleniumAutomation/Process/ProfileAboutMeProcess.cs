@@ -14,11 +14,9 @@ namespace Mars_SeleniumAutomation.Process
     {
 #pragma warning disable
         ProfileAboutMe profileAboutMeObj;
-        Jsonhelper jsonhelperObj;
         public ProfileAboutMeProcess()
         {
             profileAboutMeObj = new ProfileAboutMe();
-            jsonhelperObj = new Jsonhelper();
         }
         public void updateUsername()
         {
@@ -27,9 +25,7 @@ namespace Mars_SeleniumAutomation.Process
             foreach (var profile in ProfileAvailabilitydata) 
             {
                 string firstName = profile.firstName;
-                Console.WriteLine(firstName);
                 string lastName = profile.lastName;
-                Console.WriteLine(lastName);
                 profileAboutMeObj.usernameAvailabilityDetails(firstName, lastName);
                 string addedUsername = profileAboutMeObj.getVerifyUsername();
                 string expectedUsername = profile.firstName +" "+ profile.lastName;
@@ -43,7 +39,6 @@ namespace Mars_SeleniumAutomation.Process
             foreach (var profile in ProfileAvailabilitydata)
             {
                 string availability = profile.availability;
-                Console.WriteLine(availability);
                 profileAboutMeObj.addAndUpdateAvailabilityDetails(availability);
                 string addedAvailability = profileAboutMeObj.getAddedAvailability();
                 string expectedAvailability = profile.availability;
@@ -57,7 +52,6 @@ namespace Mars_SeleniumAutomation.Process
             foreach(var profile in ProfileAvailabilitydata)
             {
                 string hours = profile.hours;
-                Console.WriteLine(hours);
                 profileAboutMeObj.addAndUpdateHoursDetails(hours);
                 string addedHours = profileAboutMeObj.getAddedHours();
                 Assert.AreEqual(addedHours, hours, "Actual hours do not match");
@@ -70,7 +64,6 @@ namespace Mars_SeleniumAutomation.Process
             foreach (var profile in ProfileAvailabilitydata)
             {
                 string earnTarget = profile.earnTarget;
-                Console.WriteLine(earnTarget);
                 profileAboutMeObj.addAndUpdateEarnTargetDetails(earnTarget);
                 string addedEarnTarget = profileAboutMeObj.getAddedEarnTarget();
                 Assert.AreEqual(addedEarnTarget, earnTarget, "Actual earnTarget do not match");

@@ -1,4 +1,5 @@
-﻿using Mars_SeleniumAutomation.Process;
+﻿using Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview;
+using Mars_SeleniumAutomation.Process;
 using Mars_SeleniumAutomation.Utilities;
 using NUnit.Framework;
 using System;
@@ -15,17 +16,22 @@ namespace Mars_SeleniumAutomation.Test
         LoginProcess loginProcessObj;
         HomePageProcess homePageProcessObj;
         ShareSkillProcess shareSkillProcessObj;
+        ShareSkillAddComponent shareSkillAddComponentObj;
+#pragma warning disable
         public ShareSkillTest()
         {
             loginProcessObj = new LoginProcess();
             homePageProcessObj = new HomePageProcess();
             shareSkillProcessObj = new ShareSkillProcess();
+            shareSkillAddComponentObj = new ShareSkillAddComponent();
         }
         [Test,Order(1)]
         public void ShareSkillAddTest()
         {
             loginProcessObj.doLogin();
-            homePageProcessObj.clickOnShareSkillTab();
+            homePageProcessObj.clickOnManageListing();
+            shareSkillAddComponentObj.clearExistingData();
+            homePageProcessObj.clickOnManageShareskillTab();
             shareSkillProcessObj.addShareSkillDetails();
         }
         [Test,Order(2)]

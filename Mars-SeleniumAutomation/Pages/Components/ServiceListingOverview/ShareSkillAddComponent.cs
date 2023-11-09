@@ -33,6 +33,7 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
         private IWebElement addedShareSkillCategory;
         private IWebElement editedShareSkillCategory;
         private IWebElement cancelButton;
+        private IWebElement yesBtn;
         
         public void renderComponents()
         {
@@ -62,8 +63,8 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
           }
           public void renderDaysComponents()
           {
-              availableDaysStartDate = driver.FindElement(By.Name("startDate"));
-              availableDaysEndDate = driver.FindElement(By.Name("endDate"));
+             availableDaysStartDate = driver.FindElement(By.Name("startDate"));
+             availableDaysEndDate = driver.FindElement(By.Name("endDate"));
               
           }
           public void renderTimeComponents()
@@ -74,12 +75,12 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
           }
           public void renderTradeComponents()
           {
-              skillTradeBtn = driver.FindElement(By.XPath("//input[@name='skillTrades' and @value='true']"));
-              skillExchangeTag = driver.FindElement(By.XPath("//div[@class='form-wrapper']//input[@placeholder='Add new tag']"));
+             skillTradeBtn = driver.FindElement(By.XPath("//input[@name='skillTrades' and @value='true']"));
+             skillExchangeTag = driver.FindElement(By.XPath("//div[@class='form-wrapper']//input[@placeholder='Add new tag']"));
           }
           public void renderActiveComponent()
           {
-              activeButton = driver.FindElement(By.Name("isActive"));
+            activeButton = driver.FindElement(By.Name("isActive"));
           }
           public void renderSaveComponent()
           {
@@ -101,16 +102,39 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
           {
             messageBox = driver.FindElement(By.XPath("//div[@class='ns-box-inner']"));
           }
-          public void addShareSkill(ShareSkillTestModel addSkill)
+          public void renderAlertWindowComponent()
           {
+            yesBtn = driver.FindElement(By.XPath("//button[normalize-space()='Yes']"));
+          }
+
+        public void clearExistingData()
+        {
+            try
+            {
+                IWebElement deleteButton = driver.FindElement(By.XPath(".//i[@class='remove icon']"));
+                var deleteButtons = driver.FindElements(By.XPath(".//i[@class='remove icon']"));
+                foreach (var button in deleteButtons)
+                {
+                    button.Click();
+                    Wait.WaitToBeClickable(driver, "XPath", "//button[normalize-space()='Yes']", 12);
+                    renderAlertWindowComponent();
+                    yesBtn.Click();
+                }
+            }
+            catch (NoSuchElementException)
+            {
+                Console.WriteLine("no items to delete");
+            }
+        }
+        public void addShareSkill(ShareSkillTestModel addSkill)
+          {
+              clearExistingData();
               Thread.Sleep(2000);
               renderComponents();
-              Thread.Sleep(2000);
               addTitle.SendKeys(addSkill.title);
               addDescription.SendKeys(addSkill.description);
               chooseCategory.SendKeys(addSkill.category);
               renderSubcategoryComponent();
-              Thread.Sleep(2000);
               chooseSubcategory.SendKeys(Keys.Tab);
               chooseSubcategory.SendKeys(addSkill.subcategory);
           }
@@ -123,15 +147,12 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
           }
           public void addShareSkillType()
           {
-              Thread.Sleep(2000);
               renderTypeComponents();
-              Thread.Sleep(2000);
               serviceTypeBtn.Click();
               locationTypeBtn.Click();
           }
           public void addShareSkillDays(ShareSkillTestModel addSkill)
           {
-              Thread.Sleep(2000);
               renderDaysComponents();
               availableDaysStartDate.SendKeys(addSkill.startDate);
               availableDaysEndDate.SendKeys(addSkill.endDate);
@@ -146,7 +167,6 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
           public void addShareSkillTrade(ShareSkillTestModel addSkill)
           {
               renderTradeComponents();
-              Thread.Sleep(2000);
               skillTradeBtn.Click();
               skillExchangeTag.SendKeys(addSkill.skillExchange);
               skillExchangeTag.SendKeys(Keys.Enter);
@@ -178,7 +198,6 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
         }
         public void EditShareSkill(ShareSkillTestModel addSkill)
         {
-            Thread.Sleep(2000);
             renderComponents();
             addTitle.SendKeys(Keys.Control + "A");
             addTitle.SendKeys(Keys.Delete);
@@ -197,7 +216,6 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
             renderTypeComponents();
             serviceTypeBtn.Click();
             locationTypeBtn.Click();
-            Thread.Sleep(2000);
             renderDaysComponents();
             availableDaysStartDate.SendKeys(addSkill.startDate);
             availableDaysEndDate.SendKeys(addSkill.endDate);
@@ -205,7 +223,6 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
             availableSunday.Click();
             selectStartTime.SendKeys(addSkill.startTime);
             selectEndTime.SendKeys(addSkill.endTime);
-            Thread.Sleep(3000);
             renderTradeComponents();
             skillTradeBtn.Click();
             skillExchangeTag.SendKeys(addSkill.skillExchange);
@@ -225,7 +242,6 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
         }
         public void shareSkillAddNegative(ShareSkillTestModel addSkill)
         {
-            Thread.Sleep(2000);
             renderComponents();
             addTitle.SendKeys(Keys.Control + "A");
             addTitle.SendKeys(Keys.Delete);
@@ -242,7 +258,6 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
             renderTypeComponents();
             serviceTypeBtn.Click();
             locationTypeBtn.Click();
-            Thread.Sleep(2000);
             renderDaysComponents();
             availableDaysStartDate.SendKeys(addSkill.startDate);
             availableDaysEndDate.SendKeys(addSkill.endDate);
@@ -250,7 +265,6 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
             availableSunday.Click();
             selectStartTime.SendKeys(addSkill.startTime);
             selectEndTime.SendKeys(addSkill.endTime);
-            Thread.Sleep(2000);
             renderTradeComponents();
             skillTradeBtn.Click();
             skillExchangeTag.SendKeys(addSkill.skillExchange);
@@ -261,7 +275,6 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
             saveButton.SendKeys(Keys.Enter);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             saveButton.Submit();
-            Thread.Sleep(2000);
             renderCancelComponent();
             cancelButton.Click();
         }
@@ -273,7 +286,6 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
         }
         public void shareSkillUpdateNegative(ShareSkillTestModel addSkill)
         {
-            Thread.Sleep(2000);
             renderComponents();
             addTitle.SendKeys(Keys.Control + "A");
             addTitle.SendKeys(Keys.Delete);
@@ -292,7 +304,6 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
             renderTypeComponents();
             serviceTypeBtn.Click();
             locationTypeBtn.Click();
-            Thread.Sleep(2000);
             renderDaysComponents();
             availableDaysStartDate.SendKeys(addSkill.startDate);
             availableDaysEndDate.SendKeys(addSkill.endDate);
@@ -300,7 +311,6 @@ namespace Mars_SeleniumAutomation.Pages.Components.ServiceListingOverview
             availableSunday.Click();
             selectStartTime.SendKeys(addSkill.startTime);
             selectEndTime.SendKeys(addSkill.endTime);
-            Thread.Sleep(3000);
             renderTradeComponents();
             skillTradeBtn.Click();
             skillExchangeTag.SendKeys(addSkill.skillExchange);

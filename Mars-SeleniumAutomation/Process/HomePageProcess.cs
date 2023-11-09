@@ -59,11 +59,15 @@ namespace Mars_SeleniumAutomation.Process
         }
         public void clickOnManageListing()
         {
-            profileMenuTabObj.clickManageListing();
+            profileMenuTabObj.clickProfileManageListing();
         }
         public void clickOnManageListingEditIcon()
         {
             profileMenuTabObj.clickManageListingEditIcon();
+        }
+        public void clickOnManageShareskillTab()
+        {
+            profileMenuTabObj.clickServiceShareSkill();
         }
     }
 }

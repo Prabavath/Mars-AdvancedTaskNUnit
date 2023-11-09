@@ -17,32 +17,21 @@ namespace Mars_SeleniumAutomation.Process
     public class LanguageProcess : Base
     {
         AddUpdateLanguageComponent addUpdateLanguageComponentObj;
-        Jsonhelper jsonhelperObj;
-        Base baseObj;
         ExtentTest testreport;
-        private ExtentReports extent;
 #pragma warning disable
         public LanguageProcess()
         {
-            addUpdateLanguageComponentObj = new AddUpdateLanguageComponent();
-            baseObj = new Base();
-            jsonhelperObj = new Jsonhelper();
+            addUpdateLanguageComponentObj = new AddUpdateLanguageComponent();        
         }
         public void addedLanguageDetails()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "LanguageAddData";
-            baseObj.SetupTest(testName);
             LanguageTestModel model = new LanguageTestModel();
             List<LanguageTestModel> LanguageAddData = Jsonhelper.ReadTestDataFromJson<LanguageTestModel>("D:\\IC Course\\AdvancedNUnit\\Mars-AdvancedTaskNUnit\\Mars-SeleniumAutomation\\JsonData\\LanguageAddData.json");
             foreach (var data in LanguageAddData)
             {
                 string language = data.language;
-                Console.WriteLine(language);
                 string level = data.level;
-                Console.WriteLine(level);
-                string screenshotName = "LanguageAddData";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("LanguageAddData");
                 addUpdateLanguageComponentObj.addLanguage(language, level);
                 string newAddedLanguage = addUpdateLanguageComponentObj.verifyAddedLanguage();
                 Assert.AreEqual(newAddedLanguage, language, "Actual language and expected language do not match");
@@ -54,19 +43,13 @@ namespace Mars_SeleniumAutomation.Process
         }
         public void updatedLanguageDetails()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "LanguageUpdateData";
-            baseObj.SetupTest(testName);
             LanguageTestModel model = new LanguageTestModel();
             List<LanguageTestModel> LanguageUpdateData = Jsonhelper.ReadTestDataFromJson<LanguageTestModel>("D:\\IC Course\\AdvancedNUnit\\Mars-AdvancedTaskNUnit\\Mars-SeleniumAutomation\\JsonData\\LanguageUpdateData.json");
             foreach (var data in LanguageUpdateData)
             {
                 string language = data.language;
-                Console.WriteLine(language);
                 string level = data.level;
-                Console.WriteLine(level);
-                string screenshotName = "LanguageUpdateData";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("LanguageUpdateData");
                 addUpdateLanguageComponentObj.updateLanguage(language, level);
                 string updatedLanguage = addUpdateLanguageComponentObj.verifyUpdatedLanguage();
                 Assert.AreEqual(updatedLanguage, language, "Actual language and expected language do not match");
@@ -94,19 +77,13 @@ namespace Mars_SeleniumAutomation.Process
         }
         public void negativeLanguageDetails()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "AddNegativeLanguagedata";
-            baseObj.SetupTest(testName);
             LanguageTestModel model = new LanguageTestModel();
             List<LanguageTestModel> AddNegativeLanguagedata = Jsonhelper.ReadTestDataFromJson<LanguageTestModel>("D:\\IC Course\\AdvancedNUnit\\Mars-AdvancedTaskNUnit\\Mars-SeleniumAutomation\\JsonData\\AddNegativeLanguagedata.json");
             foreach (var data in AddNegativeLanguagedata)
             {
                 string language = data.language;
-                Console.WriteLine(language);
                 string level = data.level;
-                Console.WriteLine(level);
-                string screenshotName = "AddNegativeLanguagedata";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("AddNegativeLanguagedata");
                 addUpdateLanguageComponentObj.addNegativeLanguage(language, level);
                 string messageBox = addUpdateLanguageComponentObj.languageNegativeMessage();
                 var popupMessageText = messageBox;
@@ -137,19 +114,13 @@ namespace Mars_SeleniumAutomation.Process
         }
         public void negativeUpdateLanguageDetails()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "UpdateNegativeLanguagedata";
-            baseObj.SetupTest(testName);
             LanguageTestModel model = new LanguageTestModel();
             List<LanguageTestModel> UpdateNegativeLanguagedata = Jsonhelper.ReadTestDataFromJson<LanguageTestModel>("D:\\IC Course\\AdvancedNUnit\\Mars-AdvancedTaskNUnit\\Mars-SeleniumAutomation\\JsonData\\UpdateNegativeLanguagedata.json");
             foreach (var data in UpdateNegativeLanguagedata)
             {
                 string language = data.language;
-                Console.WriteLine(language);
                 string level = data.level;
-                Console.WriteLine(level);
-                string screenshotName = "UpdateNegativeLanguagedata";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("UpdateNegativeLanguagedata");
                 addUpdateLanguageComponentObj.negativeUpdateLanguage(language, level);
                 string messageBox = addUpdateLanguageComponentObj.languageNegativeMessage();
                 var popupMessageText = messageBox;

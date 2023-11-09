@@ -18,29 +18,20 @@ namespace Mars_SeleniumAutomation.Process
         HostPage hostPageObj;
         HomePage homePageObj;
         LoginComponent loginComponentObj;
-        Base baseObj;
-        ExtentTest testreport;
-        Jsonhelper jsonhelperObj;
-        private ExtentReports extent;
+        ExtentTest testreport;          
         public LoginProcess()
         {
             hostPageObj = new HostPage();
             homePageObj = new HomePage();
             loginComponentObj = new LoginComponent();
-            baseObj = new Base();
-            jsonhelperObj = new Jsonhelper();
         }
         public void doLogin()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "Logindata";
-            baseObj.SetupTest(testName);
             LoginTestModel model = new LoginTestModel();
             List<LoginTestModel> Logindata = Jsonhelper.ReadTestDataFromJson<LoginTestModel>("D:\\IC Course\\AdvancedNUnit\\Mars-AdvancedTaskNUnit\\Mars-SeleniumAutomation\\JsonData\\Logindata.json");
             foreach (var data in Logindata)
             {
-                string screenshotName = "Logindata";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("Logindata");
                 hostPageObj.clickSignIn();
                 loginComponentObj.validLogin(data);
                 string userNameLabel = homePageObj.VerifyUserName();
@@ -54,17 +45,13 @@ namespace Mars_SeleniumAutomation.Process
         }
         public void validUserInvalidPasswordProcess()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "InvalidPasswordLogindata";
-            baseObj.SetupTest(testName);
             LoginTestModel model = new LoginTestModel();
             List<LoginTestModel> InvalidPasswordLogindata = Jsonhelper.ReadTestDataFromJson<LoginTestModel>("D:\\IC Course\\AdvancedNUnit\\Mars-AdvancedTaskNUnit\\Mars-SeleniumAutomation\\JsonData\\InvalidPasswordLogindata.json");
             foreach (var data in InvalidPasswordLogindata)
             {
                 string email = data.email;
                 string password = data.password;
-                string screenshotName = "InvalidPasswordLogindata";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("InvalidPasswordLogindata");
                 loginComponentObj.validUserInvalidPassword(data);
                 string passwordAlertMessageBox = loginComponentObj.verifyPasswordMessage();
                 var errorMessage = passwordAlertMessageBox;
@@ -87,17 +74,13 @@ namespace Mars_SeleniumAutomation.Process
         }
         public void invalidUsernameValidPasswordProcess()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "InvalidUsernameData";
-            baseObj.SetupTest(testName);
             LoginTestModel model = new LoginTestModel();
             List<LoginTestModel> InvalidUsernameData = Jsonhelper.ReadTestDataFromJson<LoginTestModel>("D:\\IC Course\\AdvancedNUnit\\Mars-AdvancedTaskNUnit\\Mars-SeleniumAutomation\\JsonData\\InvalidUsernameData.json");
             foreach (var data in InvalidUsernameData)
             {
                 string email = data.email;
                 string password = data.password;
-                string screenshotName = "InvalidUsernameData";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("InvalidUsernameData");
                 loginComponentObj.invalidUsernameValidPassword(data);
                 string userNameAlertMessageBox = loginComponentObj.verifyUsernameMessage();
                 var errorMessage = userNameAlertMessageBox;
